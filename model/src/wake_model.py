@@ -1,5 +1,5 @@
 import numpy as np
-from math import sqrt
+from math import sqrt, radians, cos, sin
 from matplotlib import pyplot as plt
 
 # coeff. of thrust
@@ -12,19 +12,28 @@ beta = 0.5 * (1 + sqrt(1 - C_t)) / sqrt(1 - C_t)
 
 epsilon = sqrt(beta)
 
-width = 1000 # of simulation
-height = 500 # of simulation
+# diameter of the turbine in m
+d_0 = 0.2
+
+width = 15 # of simulation
+height = 6 # of simulation
+step = 0.05 # of simulation
+
+yaw = radians(0)
+velocity = 6
 
 def wake(X, Y):
-    z = np.cos(X / 2) + np.sin(X / 4)
+    z = 1 - ((C_t * cos(yaw) / (16 * (k_s * X / d_0 + epsilon) ** 2)) * np.exp((-1 / (2 * (k_s * X / d_0 + epsilon) ** 2)) * (Y / d_0) ** 2))
 
-    return z
+    return velocity - z
 
-x, y = np.meshgrid(np.arange(0, width, 1), np.arange(0, height, 1))
+x, y = np.meshgrid(np.arange(0, width, step), np.arange(-height / 2, height / 2, step))
+
+z = wake(x, y)
 
 fig, ax = plt.subplots(1, 1)
 
-cs = ax.contour(x, y, wake(x, y), 1)
+plt.imshow(z, cmap='rainbow')
 ax.set_title('Mathematical Wake Model')
 ax.set_xlabel('x')
 ax.set_ylabel('y')
