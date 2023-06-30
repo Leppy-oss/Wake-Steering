@@ -1,5 +1,5 @@
 import numpy as np
-from math import sqrt, radians, cos, sin
+from math import sqrt, radians, cos, sin, log
 from matplotlib import pyplot as plt
 
 # coeff. of thrust
@@ -12,20 +12,28 @@ beta = 0.5 * (1 + sqrt(1 - C_t)) / sqrt(1 - C_t)
 
 epsilon = sqrt(beta)
 
+
 # diameter of the turbine in m
 d_0 = 0.2
 
 width = 15 # of simulation
-height = 6 # of simulation
+height = 4 # of simulation
 step = 0.05 # of simulation
 
-yaw = radians(0)
+yaw = radians(-30)
+
+theta_c0 = 0.3 * yaw / cos(yaw) * (1 - sqrt(1 - C_t * cos(yaw)))
+sigma_u0 = sqrt(C_t * (sin(yaw) + 1.978 * cos(yaw) * theta_c0) / (72 * theta_c0))
+
+a = 0.166 * sqrt(C_t * cos(yaw))
+b = sigma_u0
+
 velocity = 6
 
 def wake(X, Y):
-    z = 1 - ((C_t * cos(yaw) / (16 * (k_s * X / d_0 + epsilon) ** 2)) * np.exp((-1 / (2 * (k_s * X / d_0 + epsilon) ** 2)) * (Y / d_0) ** 2))
+    z = 1 - ((C_t * cos(yaw) / (16 * (k_s * X / d_0 + epsilon) ** 2)) * np.exp((-1 / (2 * (k_s * X / d_0 + epsilon) ** 2)) * ((Y - theta_c0 * X) / d_0) ** 2))
 
-    return velocity - z
+    return z * velocity
 
 x, y = np.meshgrid(np.arange(0, width, step), np.arange(-height / 2, height / 2, step))
 
