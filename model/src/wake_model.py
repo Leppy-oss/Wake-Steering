@@ -14,11 +14,11 @@ epsilon = sqrt(beta)
 
 
 # diameter of the turbine in m
-d_0 = 0.2
+d_0 = 0.4
 
 width = 15 # of simulation
 height = 4 # of simulation
-step = 0.05 # of simulation
+step = 0.01 # of simulation
 
 yaw = radians(-30)
 
