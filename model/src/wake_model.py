@@ -17,11 +17,11 @@ epsilon = sqrt(beta)
 # diameter of the turbine in m
 d_0 = 0.2
 
-width = 5 * d_0 # of simulation
-height = d_0 # of simulation
-step = 0.01 # of simulation
+width = 50 * d_0 # of simulation
+height = 10 * d_0 # of simulation
+step = 0.005 # of simulation
 
-yaw = radians(0.01)
+yaw = radians(30)
 
 theta_c0 = 0.3 * yaw / cos(yaw) * (1 - sqrt(1 - C_t * cos(yaw)))
 sigma_u0 = sqrt(C_t * (sin(yaw) + 1.978 * cos(yaw) * theta_c0) / (72 * theta_c0))
