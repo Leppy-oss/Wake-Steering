@@ -13,7 +13,6 @@ beta = 0.5 * (1 + sqrt(1 - C_t)) / sqrt(1 - C_t)
 
 epsilon = sqrt(beta)
 
-
 # diameter of the turbine in m
 d_0 = 0.2
 
