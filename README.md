@@ -1,2 +1,3 @@
-# Wake-Steering
-Studying the affect of yaw misalignment on the wakes of turbines.
+# WAKE STEERING
+## ABOUT
+Mathematically modeling the effects of yaw misalignment on the wakes of turbines.
